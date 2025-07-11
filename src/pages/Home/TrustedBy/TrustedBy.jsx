@@ -1,4 +1,6 @@
 import React from "react";
+import Marquee from "react-fast-marquee";
+
 import casioImg from "../../../assets/brands/casio.png";
 import Img2 from "../../../assets/brands/amazon_vector.png";
 import casioImg3 from "../../../assets/brands/moonstar.png";
@@ -23,20 +25,20 @@ const TrustedBy = () => {
         We've helped thousands of sales teams
       </h2>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center justify-center max-w-6xl mx-auto">
+      <Marquee speed={40} gradient={false} pauseOnHover={true} className="py-4">
         {logos.map((logo, index) => (
           <div
             key={index}
-            className="flex justify-center items-center w-full h-16 transition hover:scale-105 duration-300"
+            className="mx-8 flex justify-center items-center h-16"
           >
             <img
               src={logo.src}
               alt={logo.name}
-              className="max-h-12 object-contain grayscale hover:grayscale-0"
+              className="max-h-12 object-contain"
             />
           </div>
         ))}
-      </div>
+      </Marquee>
     </section>
   );
 };

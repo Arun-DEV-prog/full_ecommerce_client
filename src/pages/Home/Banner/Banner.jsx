@@ -14,15 +14,12 @@ const Banner = () => {
     >
       <div>
         <img src={bannar1} />
-        <p className="legend">Legend 1</p>
       </div>
       <div>
         <img src={bannar2} />
-        <p className="legend">Legend 2</p>
       </div>
       <div>
         <img src={bannar3} />
-        <p className="legend">Legend 3</p>
       </div>
     </Carousel>
   );
