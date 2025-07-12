@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import Swal from "sweetalert2";
 import districts from "../../data/warehouses.json";
 import useAuth from "../../hook/useAuth";
+import useAxiosSecure from "../../hook/useAxiosSecure";
 
 const SendParcel = () => {
   const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
   const [parcel, setParcel] = useState({
     type: "document",
     title: "",
@@ -33,23 +35,6 @@ const SendParcel = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setParcel({ ...parcel, [name]: value });
-  };
-
-  const calculateCost = () => {
-    const isSameRegion = parcel.senderRegion === parcel.receiverRegion;
-    const weight = Number(parcel.weight) || 0;
-
-    if (parcel.type === "document") {
-      return isSameRegion ? 60 : 80;
-    }
-
-    // For Non-Document type
-    if (weight <= 3) {
-      return isSameRegion ? 110 : 150;
-    } else {
-      const base = weight * 40;
-      return isSameRegion ? base : base + 40; // extra ৳40 if outside city
-    }
   };
 
   const generateTrackingId = () => {
@@ -152,6 +137,15 @@ const SendParcel = () => {
         };
 
         console.log("Saving to DB:", data);
+
+        // custom hook
+
+        axiosSecure
+          .post("/parcels", data)
+          .then((res) => console.log(res.data))
+          .catch((err) =>
+            console.error("CORS Error:", err.response || err.message)
+          );
 
         Swal.fire("✅ Parcel Confirmed", "Proceeding to payment", "success");
 

@@ -12,6 +12,7 @@ const SocialLogin = () => {
     <div>
       OR
       <button
+        type="submit"
         onClick={handleGooglLogin}
         className="btn bg-white text-black border-[#e5e5e5]"
       >
